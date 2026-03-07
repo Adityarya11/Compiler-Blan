@@ -4,9 +4,12 @@
 #include <vector>
 #include "lexer.h"
 #include "token.h"
+#include "parser.h"
+#include "ast.h"
 
 void run(const std::string &sourceCode)
 {
+    // ── Lexer
     Lexer lexer(sourceCode);
     std::vector<Token> tokens = lexer.scanTokens();
 
@@ -17,11 +20,15 @@ void run(const std::string &sourceCode)
             std::cout << "[Line " << token.line << "] EndOfStatement '\\n'\n";
             continue;
         }
-
         std::cout << "[Line " << token.line << ", Col " << token.column << "] "
                   << tokenTypeToString(token.type)
                   << " : '" << token.lexeme << "'\n";
     }
+
+    // ── Parser
+    parser::Parser p(tokens);
+    ast::Program program = p.parse();
+    std::cout << program.toString();
 }
 
 // execute .bl / .blan
