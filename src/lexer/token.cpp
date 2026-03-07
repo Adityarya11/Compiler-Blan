@@ -1,0 +1,84 @@
+#include "token.h"
+
+std::string tokenTypeToString(TokenType type)
+{
+    switch (type)
+    {
+    case TokenType::Illegal:
+        return "Illegal";
+    case TokenType::Eof:
+        return "EOF";
+    case TokenType::EndOfStatement:
+        return "EndOfStatement";
+    case TokenType::Identifier:
+        return "Identifier";
+    case TokenType::Number:
+        return "Number";
+    case TokenType::StringLiteral:
+        return "StringLiteral";
+    case TokenType::BooleanLiteral:
+        return "BooleanLiteral";
+    case TokenType::Assign:
+        return "Assign";
+    case TokenType::Plus:
+        return "Plus";
+    case TokenType::Minus:
+        return "Minus";
+    case TokenType::Multiply:
+        return "Multiply";
+    case TokenType::Divide:
+        return "Divide";
+    case TokenType::Modulo:
+        return "Modulo";
+    case TokenType::GreaterThan:
+        return "GreaterThan";
+    case TokenType::GreaterThanEqual:
+        return "GreaterThanEqual";
+    case TokenType::LessThan:
+        return "LessThan";
+    case TokenType::LessThanEqual:
+        return "LessThanEqual";
+    case TokenType::Equal:
+        return "Equal";
+    case TokenType::NotEqual:
+        return "NotEqual";
+    case TokenType::Not:
+        return "Not";
+    case TokenType::LogicalAnd:
+        return "LogicalAnd";
+    case TokenType::LogicalOr:
+        return "LogicalOr";
+    case TokenType::StartProgram:
+        return "StartProgram";
+    case TokenType::EndProgram:
+        return "EndProgram";
+    case TokenType::VarDecl:
+        return "VarDecl";
+    case TokenType::If:
+        return "If";
+    case TokenType::Then:
+        return "Then";
+    case TokenType::ElseIf:
+        return "ElseIf";
+    case TokenType::Else:
+        return "Else";
+    case TokenType::EndIf:
+        return "EndIf";
+    case TokenType::While:
+        return "While";
+    case TokenType::Do:
+        return "Do";
+    case TokenType::EndWhile:
+        return "EndWhile";
+    case TokenType::Print:
+        return "Print";
+    case TokenType::Input:
+        return "Input";
+    case TokenType::LeftParen:
+        return "LeftParen";
+    case TokenType::RightParen:
+        return "RightParen";
+    default:
+        return "Unknown";
+    }
+}
