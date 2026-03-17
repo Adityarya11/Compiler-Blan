@@ -12,6 +12,8 @@ namespace parser
     {
         ast::Program program;
 
+        skipNewlines();
+
         // for beginning of the code.
         consume(TokenType::StartProgram, "Expected 'Haan Meri Jaan' at the top of the program.");
         program.statements.push_back(std::make_unique<ast::ProgramStartStmt>());

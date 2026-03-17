@@ -1,15 +1,31 @@
+// test 1 --> errorless
+// This is an example in blan language
 Haan Meri Jaan
-bhadwa x matlb 10
-bolna x
-bolna
-bhadwa y
-Bhag Bsdk
-bolna
-
-// test 2
-Haan Meri Jaan
+// Variables
 bhadwa x matlb 10
 bolna x
 bolna "hello"
+// Assign y
 bhadwa y matlb 20
 Bhag Bsdk
+
+
+//     // Test run youselves below
+//     
+//     // test 2 --> error
+//     Haan Meri Jaan
+//     bhadwa x matlb 10
+//     bolna x
+//     bolna
+//     bhadwa y
+//     Bhag Bsdk
+//     bolna
+//     
+//     
+//     Haan Meri Jaan
+//     // test 3 --> errorless
+//     bhadwa x matlb 10
+//     bolna x
+//     bolna "hello"
+//     bhadwa y matlb 20
+//     Bhag Bsdk

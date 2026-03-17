@@ -5,9 +5,8 @@ Lexer::Lexer(std::string source) : source(source)
 {
     keywords = {
         {"bhadwa", TokenType::VarDecl},
-        {"matlb",  TokenType::Assign},
-        {"bolna",  TokenType::Print}
-    };
+        {"matlb", TokenType::Assign},
+        {"bolna", TokenType::Print}};
 }
 
 // if EOF reached
@@ -83,7 +82,7 @@ void Lexer::identifier()
             source.substr(current, expected.size()) == expected)
         {
             current += static_cast<int>(expected.size());
-            column  += static_cast<int>(expected.size());
+            column += static_cast<int>(expected.size());
             addToken(TokenType::StartProgram, "Haan Meri Jaan");
             return;
         }
@@ -97,7 +96,7 @@ void Lexer::identifier()
             source.substr(current, expected.size()) == expected)
         {
             current += static_cast<int>(expected.size());
-            column  += static_cast<int>(expected.size());
+            column += static_cast<int>(expected.size());
             addToken(TokenType::EndProgram, "Bhag Bsdk");
             return;
         }
@@ -116,62 +115,107 @@ void Lexer::scanToken()
     char c = advance();
     switch (c)
     {
-        // Whitespace — skip
-        case ' ':
-        case '\r':
-        case '\t':
-            break;
+    // Whitespace — skip
+    case ' ':
+    case '\r':
+    case '\t':
+        break;
 
-        // Newline — acts as statement terminator
-        case '\n':
-            tokens.emplace_back(TokenType::EndOfStatement, "\\n", line, column);
-            line++;
-            column = 1;
-            break;
+    // Newline — acts as statement terminator
+    case '\n':
+        tokens.emplace_back(TokenType::EndOfStatement, "\\n", line, column);
+        line++;
+        column = 1;
+        break;
 
-        // Single-character operators
-        case '+': addToken(TokenType::Plus);      break;
-        case '-': addToken(TokenType::Minus);     break;
-        case '*': addToken(TokenType::Multiply);  break;
-        case '/': addToken(TokenType::Divide);    break;
-        case '%': addToken(TokenType::Modulo);    break;
-        case '(': addToken(TokenType::LeftParen); break;
-        case ')': addToken(TokenType::RightParen);break;
-        case '=': addToken(TokenType::Equal);     break;
-
-        // Two-character operators
-        case '<':
-            if (peek() == '=') { advance(); addToken(TokenType::LessThanEqual); }
-            else addToken(TokenType::LessThan);
-            break;
-        case '>':
-            if (peek() == '=') { advance(); addToken(TokenType::GreaterThanEqual); }
-            else addToken(TokenType::GreaterThan);
-            break;
-        case '!':
-            if (peek() == '=') { advance(); addToken(TokenType::NotEqual); }
-            else addToken(TokenType::Not);
-            break;
-
-        // String literals
-        case '"':
-            while (peek() != '"' && !isAtEnd())
-            {
-                if (peek() == '\n') { line++; column = 1; }
+    // Single-character operators
+    case '+':
+        addToken(TokenType::Plus);
+        break;
+    case '-':
+        addToken(TokenType::Minus);
+        break;
+    case '*':
+        addToken(TokenType::Multiply);
+        break;
+    case '/':
+        if (peek() == '/')
+        {
+            // A comment goes until the end of the line.
+            while (peek() != '\n' && !isAtEnd())
                 advance();
-            }
-            if (!isAtEnd()) advance(); // consume closing "
-            addToken(TokenType::StringLiteral, source.substr(start + 1, current - start - 2));
-            break;
+        }
+        else
+        {
+            addToken(TokenType::Divide);
+        }
+        break;
+    case '%':
+        addToken(TokenType::Modulo);
+        break;
+    case '(':
+        addToken(TokenType::LeftParen);
+        break;
+    case ')':
+        addToken(TokenType::RightParen);
+        break;
+    case '=':
+        addToken(TokenType::Equal);
+        break;
 
-        default:
-            if (isDigit(c))
-                number();
-            else if (isAlpha(c))
-                identifier();
-            else
-                addToken(TokenType::Illegal);
-            break;
+    // Two-character operators
+    case '<':
+        if (peek() == '=')
+        {
+            advance();
+            addToken(TokenType::LessThanEqual);
+        }
+        else
+            addToken(TokenType::LessThan);
+        break;
+    case '>':
+        if (peek() == '=')
+        {
+            advance();
+            addToken(TokenType::GreaterThanEqual);
+        }
+        else
+            addToken(TokenType::GreaterThan);
+        break;
+    case '!':
+        if (peek() == '=')
+        {
+            advance();
+            addToken(TokenType::NotEqual);
+        }
+        else
+            addToken(TokenType::Not);
+        break;
+
+    // String literals
+    case '"':
+        while (peek() != '"' && !isAtEnd())
+        {
+            if (peek() == '\n')
+            {
+                line++;
+                column = 1;
+            }
+            advance();
+        }
+        if (!isAtEnd())
+            advance(); // consume closing "
+        addToken(TokenType::StringLiteral, source.substr(start + 1, current - start - 2));
+        break;
+
+    default:
+        if (isDigit(c))
+            number();
+        else if (isAlpha(c))
+            identifier();
+        else
+            addToken(TokenType::Illegal);
+        break;
     }
 }
 
