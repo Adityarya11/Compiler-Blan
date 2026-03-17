@@ -2,10 +2,12 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+
 #include "lexer.h"
 #include "token.h"
 #include "parser.h"
 #include "ast.h"
+#include "evaluator.h"
 
 void run(const std::string &sourceCode)
 {
@@ -29,6 +31,10 @@ void run(const std::string &sourceCode)
     parser::Parser p(tokens);
     ast::Program program = p.parse();
     std::cout << program.toString();
+
+    // -- Evaluator
+    Evaluator evaluator;
+    evaluator.evaluateProgram(program);
 }
 
 // execute .bl / .blan
