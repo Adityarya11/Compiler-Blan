@@ -224,4 +224,40 @@ namespace ast
             return os.str();
         }
     };
+
+    /**
+     * agar <expr>
+     *      tab (तब) <stmts>
+     * warna <stmts>
+     * nhi_toh <stmts>
+     *
+     */
+    struct IfStmt : Stmt
+    {
+        ExprPtr condition;
+        std::vector<StmtPtr> consequences;
+        std::vector<StmtPtr> alternative; // --> this will take care for the else if or else stmts.
+
+        IfStmt(ExprPtr condition, std::vector<StmtPtr> consequences, std::vector<StmtPtr> alternative) : condition(std::move(condition)), consequences(std::move(consequences)), alternative(std::move(alternative)) {}
+
+        std::string toString(unsigned indent = 0) const override
+        {
+            return indentStr(indent) + "<IfStmt>";
+        }
+    };
+
+    // While loop
+    struct WhileStmt : Stmt
+    {
+        ExprPtr condition;
+        std::vector<StmtPtr> body;
+
+        WhileStmt(ExprPtr condition, std::vector<StmtPtr> body) : condition(std::move(condition)), body(std::move(body)) {}
+
+        std::string toString(unsigned indent = 0) const override
+        {
+            return indentStr(indent) + "<WhileStmt>";
+        }
+    };
+
 } // namespace ast

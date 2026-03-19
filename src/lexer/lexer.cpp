@@ -6,7 +6,21 @@ Lexer::Lexer(std::string source) : source(source)
     keywords = {
         {"bhadwa", TokenType::VarDecl},
         {"matlb", TokenType::Assign},
-        {"bolna", TokenType::Print}};
+        {"bolna", TokenType::Print},
+
+        // place holder for conditionals and loops
+        {"agar", TokenType::If},
+        {"tab", TokenType::Then},
+        {"warna", TokenType::ElseIf},
+        {"nahi_toh", TokenType::Else},
+        {"khtm", TokenType::EndIf},
+        {"JabTak", TokenType::While},
+        {"TabTak", TokenType::Do},
+        {"hogya", TokenType::EndWhile},
+
+        {"barabar", TokenType::Equal},
+        {"nahi_barabar", TokenType::NotEqual},
+    };
 }
 
 // if EOF reached
@@ -160,7 +174,15 @@ void Lexer::scanToken()
         addToken(TokenType::RightParen);
         break;
     case '=':
-        addToken(TokenType::Equal);
+        if (peek() == '=')
+        {
+            advance();
+            addToken(TokenType::Equal);
+        }
+        else
+        {
+            addToken(TokenType::Assign);
+        }
         break;
 
     // Two-character operators
@@ -190,6 +212,28 @@ void Lexer::scanToken()
         }
         else
             addToken(TokenType::Not);
+        break;
+    case '&':
+        if (peek() == '&')
+        {
+            advance();
+            addToken(TokenType::LogicalAnd);
+        }
+        else
+        {
+            addToken(TokenType::Illegal);
+        }
+        break;
+    case '|':
+        if (peek() == '|')
+        {
+            advance();
+            addToken(TokenType::LogicalOr);
+        }
+        else
+        {
+            addToken(TokenType::Illegal);
+        }
         break;
 
     // String literals

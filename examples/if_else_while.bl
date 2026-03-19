@@ -1,0 +1,19 @@
+Haan Meri Jaan
+
+bhadwa x matlb 10
+
+agar x > 15 tab
+    bolna "X is greater than 15"
+warna x == 10 tab
+    bolna "X is exactly 10"
+nahi_toh
+    bolna "X is less than 10"
+khtm
+
+bhadwa count matlb 3
+JabTak count > 0 TabTak
+    bolna count
+    bhadwa count matlb count - 1
+hogya
+
+Bhag Bsdk

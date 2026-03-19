@@ -92,7 +92,12 @@ int main(int argc, char *argv[])
     for (int i = 1; i < argc; i++)
     {
         std::string arg = argv[i];
-        if (arg == "--debug")
+        if (arg == "--version")
+        {
+            std::cout << "blan v0.1.0\n";
+            return 0;
+        }
+        else if (arg == "--debug")
         {
             isDebug = true;
         }
@@ -102,7 +107,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            std::cerr << "Usage: badlang [script] [--debug]\n";
+            std::cerr << "Usage: blan [script] [--debug] [--version]\n";
             return 64;
         }
     }

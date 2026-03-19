@@ -38,6 +38,10 @@ namespace parser
         ast::StmtPtr parseVarDeclStatement();
         ast::StmtPtr parsePrintStatement();
 
+        ast::StmtPtr parseIfStatement();
+        ast::StmtPtr parseIfHelper(); // Secret sauce for else-if chains
+        ast::StmtPtr parseWhileStatement();
+
         // ── expression parsers ───────────────────────────────────
         // Each level handles a different precedence layer
         ast::ExprPtr parseExpression();

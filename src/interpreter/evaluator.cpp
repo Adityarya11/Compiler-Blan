@@ -61,6 +61,51 @@ void Evaluator::execute(const ast::Stmt *stmt)
         return;
     }
 
+    // Handle if-else Statement.
+    if (auto ifStmt = dynamic_cast<const ast::IfStmt *>(stmt))
+    {
+        Value conditionalVal = evaluate(ifStmt->condition.get());
+        if (isTruth(conditionalVal))
+        {
+            for (const auto &s : ifStmt->consequences)
+            {
+                execute(s.get());
+            }
+        }
+        else
+        {
+            for (const auto &s : ifStmt->alternative)
+            {
+                execute(s.get());
+            }
+        }
+        return;
+    }
+
+    // Handle While Loop
+    if (auto whileStmt = dynamic_cast<const ast::WhileStmt *>(stmt))
+    {
+        int iterCount = 0;
+        const int Max_ITER_COUNT = 100000;
+
+        while (isTruth(evaluate(whileStmt->condition.get())))
+        {
+            for (const auto &s : whileStmt->body)
+            {
+                execute(s.get());
+            }
+            iterCount++;
+
+            if (iterCount > Max_ITER_COUNT)
+            {
+                std::cerr << "CHHUDDI!, Maximum loops exceeded, Infinite loop hai re laure.";
+                std::exit(1);
+            }
+        }
+
+        return;
+    }
+
     std::cerr << "\nCHUDDI! Unknwn statement encountered during execution.\n";
     std::exit(1);
 }
