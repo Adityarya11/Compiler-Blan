@@ -1,6 +1,6 @@
 # About the Project
 
-This project is a custom language interpreter built entirely around Hindi slang and swear words. The core motivation was to take a standard academic curriculum—specifically the Compiler Design sequence (CS331) from my university—and apply it to an unconventional and humorous concept.
+This project is a custom language interpreter built entirely around Hindi slang and swear words. The core motivation was to take a standard academic curriculum the Compiler Design (CS312) from my university—and apply it to an unconventional and humorous concept.
 
 The architecture follows the classical first phase of compiler design:
 
