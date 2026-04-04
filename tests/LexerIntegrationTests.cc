@@ -77,3 +77,21 @@ TEST_F(LexerIntegrationTest, ProducesIllegalForSingleAmpersand)
     expectToken(tokens[0], TokenType::Illegal, "&");
     expectToken(tokens[1], TokenType::Eof, "");
 }
+
+//-----
+TEST_F(LexerIntegrationTest, TokenizesBooleanKeywords)
+{
+    const auto tokens = scan("bhadwa flag matlb sach\nbhadwa off matlb jhooth");
+
+    ASSERT_EQ(tokens.size(), 10);
+    expectToken(tokens[0], TokenType::VarDecl, "bhadwa");
+    expectToken(tokens[1], TokenType::Identifier, "flag");
+    expectToken(tokens[2], TokenType::Assign, "matlb");
+    expectToken(tokens[3], TokenType::BooleanLiteral, "sach");
+    expectToken(tokens[4], TokenType::EndOfStatement, "\\n");
+    expectToken(tokens[5], TokenType::VarDecl, "bhadwa");
+    expectToken(tokens[6], TokenType::Identifier, "off");
+    expectToken(tokens[7], TokenType::Assign, "matlb");
+    expectToken(tokens[8], TokenType::BooleanLiteral, "jhooth");
+    expectToken(tokens[9], TokenType::Eof, "");
+}

@@ -4,11 +4,11 @@ bhadwa x matlb 10
 
 agar x > 15 tab
     bolna "X is greater than 15"
-warna_agar x == 10 tab
+warna x == 10 tab
     bolna "X is exactly 10"
-nhi_toh
+nahi_toh
     bolna "X is less than 10"
-bas_itna_hi
+khtm
 
 
 

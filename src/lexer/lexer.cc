@@ -12,14 +12,21 @@ Lexer::Lexer(std::string source) : source(source)
         {"agar", TokenType::If},
         {"tab", TokenType::Then},
         {"warna", TokenType::ElseIf},
+        {"warna_agar", TokenType::ElseIf},
         {"nahi_toh", TokenType::Else},
+        {"nhi_toh", TokenType::Else},
         {"khtm", TokenType::EndIf},
+        {"bas_itna_hi", TokenType::EndIf},
         {"JabTak", TokenType::While},
         {"TabTak", TokenType::Do},
         {"hogya", TokenType::EndWhile},
 
         {"barabar", TokenType::Equal},
         {"nahi_barabar", TokenType::NotEqual},
+
+        // boolean literals
+        {"sach", TokenType::BooleanLiteral},
+        {"jhooth", TokenType::BooleanLiteral},
     };
 }
 

@@ -19,6 +19,28 @@ The language strictly enforces designated entry and exit points for scope manage
 - **Entry Point:** `Haan Meri Jaan` marks the beginning of the program.
 - **Exit Point:** `Bhag Bsdk` marks the safe termination of the program. Any tokens found after this point will result in a syntax error.
 
+### Conditional Keywords
+
+Canonical keywords for conditionals are:
+
+- `agar` (if)
+- `tab` (then)
+- `warna` (else-if)
+- `nahi_toh` (else)
+- `khtm` (end-if)
+
+Canonical keywords for While-loop are:
+
+- `JabTak` (while)
+- `TabTak` (Do)
+- `hogya` (end-while)
+
+Legacy aliases are still accepted for backward compatibility:
+
+- `warna_agar` -> `warna`
+- `nhi_toh` -> `nahi_toh`
+- `bas_itna_hi` -> `khtm`
+
 ### Comments
 
 Single-line comments are supported and function identically to C++ or JavaScript.

@@ -102,7 +102,7 @@ namespace parser
         skipNewlines();
 
         std::vector<ast::StmtPtr> consequence;
-        while (!isAtEnd() && !check(TokenType::ElseIf) && !check(TokenType::Else))
+        while (!isAtEnd() && !check(TokenType::ElseIf) && !check(TokenType::Else) && !check(TokenType::EndIf))
         {
             if (match(TokenType::EndOfStatement))
                 continue;
@@ -132,7 +132,7 @@ namespace parser
     ast::StmtPtr Parser::parseIfStatement()
     {
         auto ifStmt = parseIfHelper();
-        consume(TokenType::EndIf, "Abe Laude! Expected `khtm` to close the if statement.");
+        consume(TokenType::EndIf, "Abe Laude! Expected `khtm` (or legacy alias `bas_itna_hi`) to close the if statement.");
         return ifStmt;
     }
 
