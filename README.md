@@ -4,6 +4,12 @@
 
 The Bad Language Compiler (Blan) is a specialized programming language compiler implemented in C++. Inspired by the [Zen Programming Language Compiler](https://github.com/zenlang-rs/compiler), this project translates code written in a culturally unique syntax—utilizing Hindi slang and profanities for keywords and functions—into an executable program.
 
+## Documentation and Examples
+
+- [About the project](ABOUT.md)
+- [Language examples and error handling](EXAMPLES.md)
+- [Example source programs](examples/)
+
 ## Language Specifications
 
 ### Program Structure
@@ -65,6 +71,12 @@ Ensure you have CMake and a compatible C++ compiler installed on your system.
    `cmake -S . -B build`
 2. Compile the binary:
    `cmake --build build`
+
+### Testing
+
+Run all discovered tests from the build directory configuration:
+
+`ctest --test-dir build`
 
 ### Execution
 

@@ -2,6 +2,13 @@
 
 This document outlines standard code examples and the specific error-handling mechanisms built into the Bad Language (Blan) Compiler.
 
+## Repository Example Files
+
+- [Basic program example](examples/example.bl)
+- [If/Else example](examples/if_else.bl)
+- [While loop example](examples/while.bl)
+- [If/Else with While loop example](examples/if_else_while.bl)
+
 ## Basic Example
 
 Here is a full, working example demonstrating program structure, variable assignment, and standard output.
