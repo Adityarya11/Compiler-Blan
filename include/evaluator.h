@@ -11,6 +11,8 @@ class Evaluator
 private:
     std::shared_ptr<Environment> env;
     bool isTruth(const Value &val); // for value is "true" or "false"
+    bool isNumericLike(const Value &val);
+    double asNumber(const Value &val);
 
 public:
     Evaluator();

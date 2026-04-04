@@ -30,6 +30,22 @@ bool Evaluator::isTruth(const Value &val)
     return false; // null --> "jhooth"
 }
 
+bool Evaluator::isNumericLike(const Value &val)
+{
+    return std::holds_alternative<double>(val.v) || std::holds_alternative<bool>(val.v);
+}
+
+double Evaluator::asNumber(const Value &val)
+{
+    if (std::holds_alternative<double>(val.v))
+        return std::get<double>(val.v);
+    if (std::holds_alternative<bool>(val.v))
+        return std::get<bool>(val.v) ? 1.0 : 0.0;
+
+    std::cerr << "\nCHUDDI! Expected numeric value (number/sach/jhooth).\n";
+    std::exit(1);
+}
+
 // -- Stmt Execution
 void Evaluator::execute(const ast::Stmt *stmt)
 {
@@ -143,12 +159,12 @@ Value Evaluator::evaluate(const ast::Expr *expr)
 
         if (prefix->op == ast::PrefixOp::Negate)
         {
-            if (!std::holds_alternative<double>(right.v))
+            if (!isNumericLike(right))
             {
                 std::cerr << "\nCHUDDI! You can only negate numbers!\n";
                 std::exit(1);
             }
-            return Value(-std::get<double>(right.v));
+            return Value(-asNumber(right));
         }
 
         if (prefix->op == ast::PrefixOp::Not)
@@ -183,7 +199,7 @@ Value Evaluator::evaluate(const ast::Expr *expr)
         Value right = evaluate(infix->right.get());
 
         // check for both numbers
-        bool bothNumbers = std::holds_alternative<double>(left.v) && std::holds_alternative<double>(right.v);
+        bool bothNumbers = isNumericLike(left) && isNumericLike(right);
 
         switch (infix->op)
         {
@@ -197,7 +213,7 @@ Value Evaluator::evaluate(const ast::Expr *expr)
         // airthmetic
         case ast::InfixOp::Add:
             if (bothNumbers)
-                return Value(std::get<double>(left.v) + std::get<double>(right.v));
+                return Value(asNumber(left) + asNumber(right));
 
             // both string: concatanate
             if (std::holds_alternative<std::string>(left.v) && std::holds_alternative<std::string>(right.v))
@@ -205,6 +221,7 @@ Value Evaluator::evaluate(const ast::Expr *expr)
                 return Value(std::get<std::string>(left.v) + std::get<std::string>(right.v));
             }
             std::cerr << "\nCHUDDI!, type mismatch in addition.\n";
+            std::exit(1);
 
         case ast::InfixOp::Sub:
             if (!bothNumbers)
@@ -212,7 +229,7 @@ Value Evaluator::evaluate(const ast::Expr *expr)
                 std::cerr << "\nCHUDDI!, Subtration number ka karte hai LALE";
                 std::exit(1);
             }
-            return Value(std::get<double>(left.v) - std::get<double>(right.v));
+            return Value(asNumber(left) - asNumber(right));
 
         case ast::InfixOp::Mul:
             if (!bothNumbers)
@@ -220,7 +237,7 @@ Value Evaluator::evaluate(const ast::Expr *expr)
                 std::cerr << "\nCHUDDI!, Multiplication number ka karte hai LALE";
                 std::exit(1);
             }
-            return Value(std::get<double>(left.v) * std::get<double>(right.v));
+            return Value(asNumber(left) * asNumber(right));
 
         case ast::InfixOp::Div:
             if (!bothNumbers)
@@ -229,13 +246,13 @@ Value Evaluator::evaluate(const ast::Expr *expr)
                 std::exit(1);
             }
 
-            if (std::get<double>(right.v) == 0)
+            if (asNumber(right) == 0)
             {
                 std::cerr << "\nCHUDDI!, Division by zero, Lund hai kya BSDK";
                 std::exit(1);
             }
 
-            return Value(std::get<double>(left.v) / std::get<double>(right.v));
+            return Value(asNumber(left) / asNumber(right));
 
         case ast::InfixOp::Mod:
             if (!bothNumbers)
@@ -243,12 +260,21 @@ Value Evaluator::evaluate(const ast::Expr *expr)
                 std::cerr << "\nCHUDDI!, Modulo number ka karte hai LALE";
                 std::exit(1);
             }
-            return Value((double)((int)std::get<double>(left.v) % (int)std::get<double>(right.v)));
+            if (asNumber(right) == 0)
+            {
+                std::cerr << "\nCHUDDI!, Modulo by zero, Lund hai kya BSDK";
+                std::exit(1);
+            }
+            return Value((double)((int)asNumber(left) % (int)asNumber(right)));
 
         // Comparators
         case ast::InfixOp::Eq:
+            if (bothNumbers)
+                return Value(asNumber(left) == asNumber(right));
             return Value(left.v == right.v);
         case ast::InfixOp::NotEq:
+            if (bothNumbers)
+                return Value(asNumber(left) != asNumber(right));
             return Value(left.v != right.v);
 
         case ast::InfixOp::Gt:
@@ -257,28 +283,28 @@ Value Evaluator::evaluate(const ast::Expr *expr)
                 std::cerr << "\nCHUDDI!, Comparison numbers ka karte hai LALE";
                 std::exit(1);
             }
-            return Value(std::get<double>(left.v) > std::get<double>(right.v));
+            return Value(asNumber(left) > asNumber(right));
         case ast::InfixOp::GtEq:
             if (!bothNumbers)
             {
                 std::cerr << "\nCHUDDI!, Comparison numbers ka karte hai LALE";
                 std::exit(1);
             }
-            return Value(std::get<double>(left.v) >= std::get<double>(right.v));
+            return Value(asNumber(left) >= asNumber(right));
         case ast::InfixOp::Lt:
             if (!bothNumbers)
             {
                 std::cerr << "\nCHUDDI!, Comparison numbers ka karte hai LALE";
                 std::exit(1);
             }
-            return Value(std::get<double>(left.v) < std::get<double>(right.v));
+            return Value(asNumber(left) < asNumber(right));
         case ast::InfixOp::LtEq:
             if (!bothNumbers)
             {
                 std::cerr << "\nCHUDDI!, Comparison numbers ka karte hai LALE";
                 std::exit(1);
             }
-            return Value(std::get<double>(left.v) <= std::get<double>(right.v));
+            return Value(asNumber(left) <= asNumber(right));
 
         default:
             std::cerr << "\nCHUDDI! Unknown operator!\n";

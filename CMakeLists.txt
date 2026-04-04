@@ -35,6 +35,7 @@ FetchContent_MakeAvailable(googletest)
 
 add_executable(compilerTests
     tests/LexerIntegrationTests.cc
+  tests/InterpreterBooleanIntegrationTests.cc
 )
 
 target_link_libraries(compilerTests PRIVATE blan_core GTest::gtest_main)
