@@ -4,11 +4,12 @@
 Lexer::Lexer(std::string source) : source(source)
 {
     keywords = {
+        //basics
         {"bhadwa", TokenType::VarDecl},
         {"matlb", TokenType::Assign},
         {"bolna", TokenType::Print},
 
-        // place holder for conditionals and loops
+        // conditionals and lloops
         {"agar", TokenType::If},
         {"tab", TokenType::Then},
         {"warna", TokenType::ElseIf},

@@ -75,7 +75,7 @@ void runPrompt(bool isDebug)
     {
         std::cout << "bl> ";
         if (!std::getline(std::cin, line))
-            break; // Handle EOF (Ctrl+D / Ctrl+Z)
+            break;
         if (line == "exit")
             break;
 

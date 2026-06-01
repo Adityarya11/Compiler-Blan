@@ -96,9 +96,17 @@ Ensure you have CMake and a compatible C++ compiler installed on your system.
 
 ### Testing
 
-Run all discovered tests from the build directory configuration:
+To run all tests:
 
 `ctest --test-dir build`
+
+To run a specific test:
+
+`ctest --test-dir build -N -R "<TEST_NAME>"`
+
+To run cumulative tests (multiple tests in one run):
+
+`ctest --test-dir build -R "<TEST_1>|<TEST_2>|<TEST_3>"`
 
 ### Execution
 
