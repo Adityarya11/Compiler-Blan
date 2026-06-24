@@ -1,5 +1,7 @@
 # Bad Language Compiler (Blan)
 
+## Download from here → [Releases](https://github.com/Adityarya11/Compiler-Blan/releases/tag/v1.1.0)
+
 <!-- ## Overview -->
 
 The Bad Language Compiler (Blan) is a specialized programming language compiler implemented in C++. Inspired by the [Zen Programming Language Compiler](https://github.com/zenlang-rs/compiler), this project translates code written in a culturally unique syntax—utilizing Hindi slang and profanities for keywords and functions—into an executable program.
